@@ -1,172 +1,647 @@
 <!DOCTYPE html>
-<html lang="id">
-
+<html lang="id" data-theme="light">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TJKT Smart Network - Media Pembelajaran Edukasi & Layanan Jaringan Komputer</title>
-    
-    <!-- Google Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    
-    <!-- Font Awesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    
-    <!-- Stylesheet Utama -->
-    <link rel="stylesheet" href="style.css">
-    
-    <!-- JavaScript Interaktif -->
-    <script src="script.js" defer></script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TJKT Smart Network - Platform Edukasi Interaktif SMK</title>
+  <meta name="description" content="Platform edukasi interaktif SMK Teknik Jaringan Komputer dan Telekomunikasi oleh Aulia Hanifa. Belajar materi, fun facts, game edukasi, kuis, dan dapatkan sertifikat!">
+  
+  <!-- CSS Stylesheet -->
+  <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
 
-<!--Header dan navigasi-->
-<header>
-    <nav>
-        <h1>TJKT Smart Network</h1>
+  <!-- HTML5 Audio BGM Player Element -->
+  <audio id="bgm-player" preload="auto" loop></audio>
 
-        <ul>
-            <li>
-                <a href="#beranda">Beranda</a>
-            </li>
+  <!-- Confetti Animation Canvas -->
+  <canvas id="confetti-canvas"></canvas>
 
-            <li>
-                <a href="#layanan">Layanan</a>
-            </li>
+  <!-- Animated Splash Screen -->
+  <div id="splash-screen">
+    <div class="splash-logo">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect>
+        <rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect>
+        <line x1="6" y1="6" x2="6.01" y2="6"></line>
+        <line x1="6" y1="18" x2="6.01" y2="18"></line>
+        <path d="M12 10v4"></path>
+      </svg>
+      <span>TJKT Smart Network</span>
+    </div>
+    <div class="splash-subtitle">Teknik Jaringan Komputer & Telekomunikasi - Aulia Hanifa</div>
+    <div class="splash-loader-bar">
+      <div class="splash-loader-progress" id="splash-progress"></div>
+    </div>
+  </div>
 
-            <li>
-                <a href="#kontak">Kontak</a>
-            </li>
-        </ul>
-    </nav>
-</header>
+  <!-- App Layout -->
+  <div class="app-layout">
 
-<!--Isi utama website-->
-<main>
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <div class="brand-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M4 11a9 9 0 0 1 9 9"></path>
+            <path d="M4 4a16 16 0 0 1 16 16"></path>
+            <circle cx="5" cy="19" r="1"></circle>
+          </svg>
+        </div>
+        <div class="brand-text">
+          <h1>TJKT Smart</h1>
+          <span>Aulia Hanifa</span>
+        </div>
+      </div>
 
-    <!--Bagian Pembuka-->
-    <section id="beranda" class="hero">
+      <!-- Navigation Menu (9 Pages - Replaced Video with Fun Facts) -->
+      <nav class="nav-menu">
+        <a class="nav-item active" data-page="home">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+          <span>Home</span>
+        </a>
+        <a class="nav-item" data-page="materi">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+          <span>Materi</span>
+        </a>
+        <a class="nav-item" data-page="funfacts">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M12 16v-4"></path><path d="M12 8h.01"></path></svg>
+          <span>Fun Facts</span>
+        </a>
+        <a class="nav-item" data-page="games">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="6" y1="12" x2="10" y2="12"></line><line x1="8" y1="10" x2="8" y2="14"></line><circle cx="15" cy="13" r="1"></circle><circle cx="18" cy="11" r="1"></circle><rect x="2" y="6" width="20" height="12" rx="6"></rect></svg>
+          <span>Game Edukasi</span>
+        </a>
+        <a class="nav-item" data-page="kuis">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+          <span>Kuis Interaktif</span>
+        </a>
+        <a class="nav-item" data-page="leaderboard">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path><path d="M4 22h16"></path><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"></path><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"></path><path d="M18 2H6v7a6 6 0 0 0 12 0V2z"></path></svg>
+          <span>Leaderboard</span>
+        </a>
+        <a class="nav-item" data-page="sertifikat">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="7"></circle><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline></svg>
+          <span>Sertifikat</span>
+        </a>
+        <a class="nav-item" data-page="tentang">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+          <span>Tentang</span>
+        </a>
+        <a class="nav-item" data-page="kontak">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+          <span>Kontak</span>
+        </a>
+      </nav>
 
-        <div class="hero-teks">
+      <!-- Sidebar Mini Profile Footer -->
+      <div class="sidebar-footer">
+        <div class="user-mini-card">
+          <div class="user-avatar" id="user-avatar-initial">AH</div>
+          <div class="user-details">
+            <div class="user-name" id="user-display-name">Siswa SMK</div>
+            <div class="user-level" id="user-level-badge">Level 1 - Pemula</div>
+          </div>
+        </div>
+      </div>
+    </aside>
 
-            <p class="label">
-                Layanan Jaringan Profesional
-            </p>
+    <!-- Main Wrapper Area -->
+    <div class="main-wrapper">
 
-            <h2>
-                Solusi Jaringan Cepat dan Stabil
-            </h2>
-
-            <p>
-                Kami menyediakan layanan instalasi dan perawatan jaringan komputer untuk sekolah, kantor, rumah, dan
-                tempat usaha.
-            </p>
-
-            <a href="#layanan" class="tombol">
-                Lihat Layanan
-            </a>
+      <!-- Top Header Navbar -->
+      <header class="top-header">
+        <div class="header-left">
+          <button class="mobile-menu-toggle" id="mobile-toggle" aria-label="Toggle Menu">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+          </button>
+          <div class="page-title" id="current-page-title">Beranda</div>
         </div>
 
-        <div class="hero-gambar">
-            <img src="images/jaringan.jpg" alt="Teknisi sedang melakukan instalasi jaringan komputer">
+        <div class="header-right">
+          <!-- XP Progress Pill -->
+          <div class="xp-pill">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon></svg>
+            <span id="user-xp-counter">0 XP</span>
+          </div>
 
-        </div>
-
-    </section>
-
-    <!--Bagian Layanan-->
-    <section id="layanan" class="layanan">
-
-        <h2>Layanan Kami</h2>
-        <p class="deskripsi-bagian">
-            Berikut beberapa layanan jaringan komputer yang kami sediakan.
-        </p>
-
-        <div class="daftar-layanan">
-
-            <div class="kartu">
-
-                <h3>Instalasi LAN</h3>
-
-                <p>
-                    Pemasangan jaringan komputer untuk sekolah, kantor, laboratorium, dan tempat usaha.
-                </p>
-
+          <!-- Enhanced Music Player Controller Widget -->
+          <div class="music-widget" id="music-widget">
+            <div class="music-controls-group">
+              <button class="music-play-btn" id="music-play-btn" title="Play/Pause Musik Instrumental">
+                <span id="music-play-icon">▶️</span>
+              </button>
+              <button class="music-settings-btn" id="music-settings-btn" title="Pengaturan Musik & Playlist">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+              </button>
             </div>
 
-            <div class="kartu">
+            <!-- Popover for Playlist & Volume Controls -->
+            <div class="music-popover" id="music-popover">
+              <div class="music-popover-header">
+                <span>🎵 Musik Instrumental</span>
+                <span id="music-vol-icon">🔊</span>
+              </div>
+              
+              <!-- Volume Slider -->
+              <div class="music-volume-row">
+                <input type="range" id="music-volume-slider" min="0" max="1" step="0.05" value="0.7" title="Pengaturan Volume">
+                <span id="music-vol-pct" style="font-size:0.8rem; font-weight:700; min-width:35px;">70%</span>
+              </div>
 
-                <h3>Konfigurasi Router</h3>
+              <!-- Playlist Dropdown -->
+              <label style="font-size:0.8rem; font-weight:700; color:var(--text-muted); display:block; margin-bottom:6px;">Pilih Playlist Track:</label>
+              <select class="music-playlist-select" id="music-playlist-select">
+                <option value="0">🎵 1. Lo-Fi Study Beat (Ambient Chill)</option>
+                <option value="1">⚡ 2. Cyber Network Synth (Futuristic)</option>
+                <option value="2">🎸 3. Acoustic Focus Harmony (Melodic)</option>
+              </select>
+            </div>
+          </div>
 
-                <p>
-                    Pengaturan router agar jaringan dapat digunakan dengan aman, baik, dan stabil.
-                </p>
+          <!-- Fullscreen Toggle -->
+          <button class="icon-btn ripple" id="fullscreen-toggle" title="Mode Layar Penuh">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"></path></svg>
+          </button>
 
+          <!-- Theme Selector Dropdown (Light 🌞, Dark 🌙, Pink 💗) -->
+          <div class="theme-dropdown" id="theme-dropdown">
+            <button class="icon-btn ripple" id="theme-btn" title="Ganti Tema">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+            </button>
+            <div class="theme-menu">
+              <button class="theme-opt active" data-theme="light">
+                <span>🌞 Light Mode</span>
+              </button>
+              <button class="theme-opt" data-theme="dark">
+                <span>🌙 Dark Mode</span>
+              </button>
+              <button class="theme-opt" data-theme="pink">
+                <span>💗 Pink Mode</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- Content Container Pages -->
+      <main class="content-container">
+
+        <!-- ================= PAGE 1: HOME ================= -->
+        <section class="page-section active anim-fade" id="page-home">
+          <div class="hero-banner">
+            <div class="hero-content">
+              <span class="hero-tag">🚀 Selamat Datang di TJKT Smart Network</span>
+              <h1>Kuasai Teknik Jaringan Komputer & Telekomunikasi</h1>
+              <p>Platform pembelajaran interaktif terlengkap untuk siswa SMK TJKT. Belajar teori jaringan, baca Fun Facts unik, mainkan 9 game seru, dan raih sertifikat keahlianmu!</p>
+              <div class="hero-btns">
+                <button class="btn btn-primary ripple nav-trigger" data-page="materi">
+                  <span>Mulai Belajar</span>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                </button>
+                <button class="btn btn-secondary ripple nav-trigger" data-page="games">
+                  <span>Main Game Edukasi</span>
+                </button>
+              </div>
+            </div>
+            <div class="hero-illustration">
+              <svg viewBox="0 0 200 200" fill="none">
+                <circle cx="100" cy="100" r="80" fill="rgba(255,255,255,0.15)"/>
+                <rect x="50" y="60" width="100" height="70" rx="10" fill="#ffffff" opacity="0.9"/>
+                <rect x="60" y="70" width="80" height="45" rx="4" fill="#1e293b"/>
+                <circle cx="100" cy="92" r="12" fill="#38bdf8"/>
+                <path d="M70 150h60v10H70z" fill="#ffffff"/>
+              </svg>
+            </div>
+          </div>
+
+          <!-- Quick Stats Counter Grid -->
+          <div class="stats-grid">
+            <div class="card stat-card">
+              <div class="stat-icon" style="background: rgba(37, 99, 235, 0.15); color: var(--primary);">📚</div>
+              <div class="stat-info">
+                <h3 id="stat-progress-pct">0%</h3>
+                <p>Progress Belajar</p>
+              </div>
+            </div>
+            <div class="card stat-card">
+              <div class="stat-icon" style="background: rgba(16, 185, 129, 0.15); color: var(--success);">✅</div>
+              <div class="stat-info">
+                <h3 id="stat-completed-materi">0 / 8</h3>
+                <p>Materi Selesai</p>
+              </div>
+            </div>
+            <div class="card stat-card">
+              <div class="stat-icon" style="background: rgba(245, 158, 11, 0.15); color: var(--warning);">🎮</div>
+              <div class="stat-info">
+                <h3 id="stat-games-played">0</h3>
+                <p>Game Dimainkan</p>
+              </div>
+            </div>
+            <div class="card stat-card">
+              <div class="stat-icon" style="background: rgba(139, 92, 246, 0.15); color: var(--accent);">📝</div>
+              <div class="stat-info">
+                <h3 id="stat-quiz-avg">0</h3>
+                <p>Nilai Rata-rata Kuis</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Daily Challenge & Calendar Widget -->
+          <div class="daily-challenge-card">
+            <div class="challenge-left">
+              <div class="challenge-icon">🔥</div>
+              <div>
+                <h3>Tantangan Harian (Daily Challenge)</h3>
+                <p id="daily-challenge-text">Selesaikan 1 Game Edukasi Tebak Gambar untuk mendapatkan +100 XP Bonus!</p>
+              </div>
+            </div>
+            <button class="btn btn-accent ripple" id="claim-daily-btn">Klaim Challenge</button>
+          </div>
+
+          <div class="section-header">
+            <h2>Modul Unggulan SMK TJKT</h2>
+            <p>Pilih topik pembahasan untuk memperdalam wawasan jaringan komputermu</p>
+          </div>
+
+          <div class="grid-3" id="home-featured-materi"></div>
+        </section>
+
+
+        <!-- ================= PAGE 2: MATERI ================= -->
+        <section class="page-section anim-slide" id="page-materi">
+          <div class="section-header">
+            <h2>Modul Pembelajaran TJKT</h2>
+            <p>Materi terlengkap Teknik Jaringan Komputer dan Telekomunikasi SMK</p>
+          </div>
+
+          <div class="materi-controls">
+            <div class="search-box">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+              <input type="text" id="materi-search-input" placeholder="Cari materi jaringan (misal: Subnetting, OSI, Fiber)...">
+            </div>
+            <div class="filter-pills" id="materi-filter-group">
+              <button class="filter-btn active" data-filter="all">Semua Materi</button>
+              <button class="filter-btn" data-filter="dasar">Jaringan Dasar</button>
+              <button class="filter-btn" data-filter="hardware">Perangkat & Media</button>
+              <button class="filter-btn" data-filter="advanced">Routing & Server</button>
+              <button class="filter-btn" data-filter="bookmarked">⭐ Favorit Saya</button>
+            </div>
+          </div>
+
+          <div class="grid-3" id="materi-grid-container"></div>
+        </section>
+
+
+        <!-- ================= PAGE 3: FUN FACTS (REPLACED VIDEO) ================= -->
+        <section class="page-section anim-fade" id="page-funfacts">
+          <div class="section-header">
+            <h2>💡 Fun Facts TJKT</h2>
+            <p>Fakta-fakta unik, menarik, dan menakjubkan seputar dunia teknologi jaringan komputer & telekomunikasi!</p>
+          </div>
+
+          <!-- Featured Spotlight Card with Random Button -->
+          <div class="funfact-spotlight-card anim-zoom" id="funfact-spotlight-card">
+            <div class="funfact-spotlight-left">
+              <span class="badge badge-purple" id="spotlight-category-badge">💡 Spotlight Fact</span>
+              <div class="funfact-spotlight-icon" id="spotlight-icon">🌐</div>
+              <h3 id="spotlight-title">99% Internet Ditransmisikan Lewat Kabel Bawah Laut</h3>
+              <p id="spotlight-text">Meskipun ada satelit canggih, 99% lalu lintas data internet antar benua di seluruh dunia ditransmisikan melalui kabel serat optik bawah laut sepanjang 1,3 juta kilometer!</p>
+              <button class="btn btn-primary btn-lg ripple" id="next-random-fact-btn">
+                <span>🎲 Fakta Berikutnya</span>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="23 4 23 10 17 10"></polyline><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path></svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Fun Facts Filter Pills -->
+          <div class="materi-controls">
+            <div class="filter-pills" id="funfact-filter-group">
+              <button class="filter-btn active" data-fact-filter="all">Semua Fakta</button>
+              <button class="filter-btn" data-fact-filter="sejarah">Sejarah & Asal Usul</button>
+              <button class="filter-btn" data-fact-filter="fiber">Fiber Optik</button>
+              <button class="filter-btn" data-fact-filter="hardware">Hardware & Protocol</button>
+              <button class="filter-btn" data-fact-filter="security">Keamanan Jaringan</button>
+            </div>
+          </div>
+
+          <!-- Fun Facts Grid Container -->
+          <div class="grid-3" id="funfacts-grid-container"></div>
+        </section>
+
+
+        <!-- ================= PAGE 4: GAME EDUKASI ================= -->
+        <section class="page-section anim-zoom" id="page-games">
+          <div class="games-hub-header">
+            <h2>🎮 9 Game Edukasi TJKT</h2>
+            <p>Bermain sambil belajar! Kumpulkan skor tinggi, raih bintang 3, dan naikkan level keahlian jaringanmu.</p>
+          </div>
+
+          <div class="grid-3">
+            <div class="card game-card card-interactive ripple" data-game="tebak-gambar">
+              <div class="game-icon-wrap">🖼️</div>
+              <h3>1. Tebak Gambar</h3>
+              <p>Tebak perangkat keras jaringan komputer berdasarkan visual & petunjuk klue.</p>
+              <span class="badge badge-primary">⭐ 3 Level</span>
             </div>
 
-            <div class="kartu">
-
-                <h3>Pemasangan Wi-Fi</h3>
-
-                <p>
-                    Pemasangan acces point untuk memperluas jangkauan jaringan internet.
-                </p>
+            <div class="card game-card card-interactive ripple" data-game="memory-card">
+              <div class="game-icon-wrap">🃏</div>
+              <h3>2. Memory Card</h3>
+              <p>Uji daya ingatmu mencocokkan istilah TJKT & nomor port standar.</p>
+              <span class="badge badge-purple">⏱️ Berwaktu</span>
             </div>
 
-        </div>
+            <div class="card game-card card-interactive ripple" data-game="drag-drop">
+              <div class="game-icon-wrap">🎯</div>
+              <h3>3. Drag and Drop</h3>
+              <p>Geser dan tempatkan 7 Lapisan OSI Model sesuai posisi hirarki tepat.</p>
+              <span class="badge badge-success">🧩 Logic</span>
+            </div>
 
-    </section>
+            <div class="card game-card card-interactive ripple" data-game="puzzle-topologi">
+              <div class="game-icon-wrap">🧩</div>
+              <h3>4. Topology Puzzle</h3>
+              <p>Susun potongan arsitektur topologi jaringan Star, Bus, Mesh & Ring.</p>
+              <span class="badge badge-primary">📐 Visual</span>
+            </div>
+
+            <div class="card game-card card-interactive ripple" data-game="susun-kata">
+              <div class="game-icon-wrap">🔤</div>
+              <h3>5. Susun Kata</h3>
+              <p>Rangkai kembali susunan huruf kata acak jargon jaringan komputer.</p>
+              <span class="badge badge-warning">⚡ Speed</span>
+            </div>
+
+            <div class="card game-card card-interactive ripple" data-game="benar-salah">
+              <div class="game-icon-wrap">⚡</div>
+              <h3>6. Benar atau Salah</h3>
+              <p>Fakta kilat seputar dunia telekomunikasi! Putuskan dalam 10 detik.</p>
+              <span class="badge badge-purple">🔥 Blitz</span>
+            </div>
+
+            <div class="card game-card card-interactive ripple" data-game="timed-quiz">
+              <div class="game-icon-wrap">⏱️</div>
+              <h3>7. Speed Challenge</h3>
+              <p>Jawab pertanyaan jaringan sebanyak mungkin sebelum countdown berakhir!</p>
+              <span class="badge badge-warning">🏆 High Score</span>
+            </div>
+
+            <div class="card game-card card-interactive ripple" data-game="roda-keberuntungan">
+              <div class="game-icon-wrap">🎡</div>
+              <h3>8. Roda Keberuntungan</h3>
+              <p>Putar roda keberuntungan untuk tantangan soal acak berhadiah XP!</p>
+              <span class="badge badge-success">🎁 Wheel</span>
+            </div>
+
+            <div class="card game-card card-interactive ripple" data-game="escape-room">
+              <div class="game-icon-wrap">🗝️</div>
+              <h3>9. Escape Room Mini</h3>
+              <p>Pecahkan teka-teki enkripsi & subnetting untuk meloloskan diri dari server room!</p>
+              <span class="badge badge-purple">🔐 Mini Quest</span>
+            </div>
+          </div>
+        </section>
 
 
-    <!--Bagian kontak-->
-    <section id="kontak" class="kontak">
+        <!-- ================= PAGE 5: KUIS ================= -->
+        <section class="page-section anim-fade" id="page-kuis">
+          <div class="section-header">
+            <h2>Kuis Evaluasi Kompetensi TJKT</h2>
+            <p>Uji pemahamanmu secara menyeluruh dengan soal acak dan pembahasan mendalam</p>
+          </div>
 
-        <h2>Hubungi Kami</h2>
+          <div class="quiz-box card" id="quiz-start-card">
+            <div style="text-align: center; padding: 20px;">
+              <div style="font-size: 3.5rem; margin-bottom: 16px;">📝</div>
+              <h3 style="font-size: 1.5rem; margin-bottom: 12px;">Ujian Sertifikasi Mandiri TJKT</h3>
+              <p style="color: var(--text-muted); margin-bottom: 24px;">Kuis ini berisi 10 soal acak dari bank soal SMK. Raih nilai minimal 80 untuk membuka Sertifikat kelulusan!</p>
+              <button class="btn btn-primary btn-lg ripple" id="start-quiz-btn">Mulai Kuis Sekarang</button>
+            </div>
+          </div>
 
-        <p>
-            Konsultasikan kebutuhan jaringan komputer Anda bersama TJKT Smart Network.
-        </p>
+          <div class="quiz-box" id="active-quiz-container" style="display: none;">
+            <div class="card question-card">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+                <span class="badge badge-primary" id="quiz-step-indicator">Soal 1 dari 10</span>
+                <span id="quiz-timer-display" style="font-weight: 700; color: var(--danger);">⏱️ 00:30</span>
+              </div>
+              <div class="progress-bar-bg" style="margin-bottom: 24px;">
+                <div class="progress-bar-fill" id="quiz-progress-bar" style="width: 10%;"></div>
+              </div>
+              <div class="question-text" id="quiz-question-text">Loading pertanyaan...</div>
+              <div class="options-group" id="quiz-options-group"></div>
+              <div class="explanation-box" id="quiz-explanation" style="display: none;"></div>
+            </div>
 
-        <div class="informasi-kontak">
+            <div style="display: flex; justify-content: flex-end; gap: 12px;">
+              <button class="btn btn-primary ripple" id="next-question-btn" style="display: none;">Lanjut Soal Berikutnya</button>
+            </div>
+          </div>
 
-            <p>
-                <strong>Email:</strong>
-                tjktsmart@example.com
-            </p>
-
-            <p>
-                <strong>Telepon:</strong>
-                0812-3456-7890
-            </p>
-
-            <p>
-                <strong>Lokasi:</strong>
-                surakarta, Jawa Tengah
-            </p>
-
-        </div>
-
-    </section>
+          <div class="quiz-box card" id="quiz-results-card" style="display: none; text-align: center; padding: 32px;">
+            <div id="quiz-result-icon" style="font-size: 4rem; margin-bottom: 16px;">🎉</div>
+            <h2 id="quiz-result-score" style="font-size: 2.2rem; color: var(--primary); margin-bottom: 8px;">Nilai: 100 / 100</h2>
+            <p id="quiz-result-msg" style="color: var(--text-muted); font-size: 1.1rem; margin-bottom: 28px;">Luar biasa! Kamu menguasai materi TJKT dengan sangat baik.</p>
+            <div style="display: flex; justify-content: center; gap: 16px;">
+              <button class="btn btn-secondary ripple" id="restart-quiz-btn">Coba Lagi</button>
+              <button class="btn btn-success ripple nav-trigger" data-page="sertifikat" id="claim-cert-nav-btn">Ambil Sertifikat 📜</button>
+            </div>
+          </div>
+        </section>
 
 
-</main>
+        <!-- ================= PAGE 6: LEADERBOARD ================= -->
+        <section class="page-section anim-slide" id="page-leaderboard">
+          <div class="section-header">
+            <h2>Papan Peringkat (Leaderboard)</h2>
+            <p>Siswa dengan perolehan XP dan pencapaian tertinggi di TJKT Smart Network</p>
+          </div>
 
-<!--Footer-->
-<footer>
+          <div class="card" style="overflow-x: auto;">
+            <table class="leaderboard-table">
+              <thead>
+                <tr>
+                  <th>Peringkat</th>
+                  <th>Nama Siswa</th>
+                  <th>Level</th>
+                  <th>Game Dimainkan</th>
+                  <th>Total XP</th>
+                </tr>
+              </thead>
+              <tbody id="leaderboard-tbody"></tbody>
+            </table>
+          </div>
+        </section>
 
-    <p>
-        &copy; 2026 TJKT Smart Network
-    </p>
 
-    <p>
-        Dibuat untuk Pembelajaran Pemograman Web Dasar
-    </p>
+        <!-- ================= PAGE 7: SERTIFIKAT ================= -->
+        <section class="page-section anim-zoom" id="page-sertifikat">
+          <div class="section-header">
+            <h2>Sertifikat Kelulusan TJKT</h2>
+            <p>Cetak sertifikat kompetensi resmimu setelah menyelesaikan pembelajaran dan kuis</p>
+          </div>
 
-</footer>
+          <div class="cert-preview-card">
+            <div class="card" style="padding: 20px; margin-bottom: 20px;">
+              <div style="max-width: 400px; margin: 0 auto; text-align: left;">
+                <label style="font-weight: 700; font-size: 0.9rem; display: block; margin-bottom: 8px;">Masukkan Nama Lengkap Anda:</label>
+                <input type="text" id="cert-name-input" class="search-box" style="width:100%; padding:10px 14px;" value="Aulia Hanifa" placeholder="Nama Lengkap untuk Sertifikat">
+              </div>
+            </div>
 
+            <canvas id="cert-canvas" width="1000" height="700"></canvas>
+
+            <div style="display: flex; justify-content: center; gap: 16px;">
+              <button class="btn btn-primary ripple" id="download-cert-btn">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                <span>Unduh Gambar Sertifikat (PNG)</span>
+              </button>
+              <button class="btn btn-secondary ripple" id="print-cert-btn">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+                <span>Cetak / Print</span>
+              </button>
+            </div>
+          </div>
+        </section>
+
+
+        <!-- ================= PAGE 8: TENTANG ================= -->
+        <section class="page-section anim-fade" id="page-tentang">
+          <div class="section-header">
+            <h2>Tentang TJKT Smart Network</h2>
+            <p>Inovasi media pembelajaran edukasi interaktif modern untuk jurusan SMK TJKT</p>
+          </div>
+
+          <div class="grid-2">
+            <div class="card">
+              <h3 style="font-size: 1.3rem; margin-bottom: 12px; color: var(--primary);">Visi & Tujuan Platform</h3>
+              <p style="color: var(--text-muted); line-height: 1.7; margin-bottom: 16px;">TJKT Smart Network dikembangkan khusus untuk menghadirkan pengalaman belajar yang menyenangkan, interaktif, dan modern bagi siswa Teknik Jaringan Komputer dan Telekomunikasi. Melalui kombinasi visual menarik, modul berbasis standar industri, Fun Facts unik, 9 game edukasi, dan evaluasi berbasis sertifikasi, siswa dapat menguasai keterampilan jaringan dengan lebih cepat dan bersemangat.</p>
+              <p style="color: var(--text-muted); line-height: 1.7;">Aplikasi ini dirancang responsif dan fleksibel dengan 3 pilihan tema visual (Light 🌞, Dark 🌙, Pink 💗) serta dapat diakses melalui laptop, tablet, maupun smartphone.</p>
+            </div>
+
+            <div class="card">
+              <h3 style="font-size: 1.3rem; margin-bottom: 12px; color: var(--primary);">Informasi Pengembang</h3>
+              <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 20px;">
+                <div class="user-avatar" style="width: 56px; height: 56px; font-size: 1.4rem;">AH</div>
+                <div>
+                  <h4 style="font-size: 1.1rem;">Aulia Hanifa</h4>
+                  <p style="color: var(--text-muted); font-size: 0.9rem;">Siswa / Pengembang Utama TJKT Smart Network</p>
+                </div>
+              </div>
+              <ul style="color: var(--text-muted); line-height: 1.8; padding-left: 20px;">
+                <li><strong>Kurikulum:</strong> SMK Teknik Jaringan Komputer dan Telekomunikasi</li>
+                <li><strong>Teknologi:</strong> HTML5, Vanilla CSS3 Custom Properties, ES6 JavaScript, HTML5 Audio Player & Audio API, Canvas Engine</li>
+                <li><strong>Versi Platform:</strong> v3.2 (Fun Facts & Enhanced Music Edition)</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+
+        <!-- ================= PAGE 9: KONTAK ================= -->
+        <section class="page-section anim-slide" id="page-kontak">
+          <div class="section-header">
+            <h2>Pusat Bantuan & Kontak</h2>
+            <p>Punya pertanyaan atau masukan? Hubungi kami atau lihat FAQ di bawah</p>
+          </div>
+
+          <div class="grid-2">
+            <div class="card">
+              <h3 style="font-size: 1.25rem; margin-bottom: 16px;">Kirim Pesan & Feedback</h3>
+              <form id="contact-form" onsubmit="event.preventDefault(); window.handleContactSubmit();">
+                <div style="margin-bottom: 14px;">
+                  <label style="font-weight: 700; font-size: 0.85rem; display: block; margin-bottom: 6px;">Nama Anda:</label>
+                  <input type="text" required class="search-box" style="width:100%; padding:10px;" placeholder="Nama Lengkap">
+                </div>
+                <div style="margin-bottom: 14px;">
+                  <label style="font-weight: 700; font-size: 0.85rem; display: block; margin-bottom: 6px;">Email Siswa / Sekolah:</label>
+                  <input type="email" required class="search-box" style="width:100%; padding:10px;" placeholder="nama@smk.sch.id">
+                </div>
+                <div style="margin-bottom: 20px;">
+                  <label style="font-weight: 700; font-size: 0.85rem; display: block; margin-bottom: 6px;">Pesan atau Pertanyaan:</label>
+                  <textarea required rows="4" class="search-box" style="width:100%; padding:10px;" placeholder="Tuliskan masukan atau kendala belajar Anda di sini..."></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary ripple" style="width: 100%;">Kirim Pesan Sekarang</button>
+              </form>
+            </div>
+
+            <div>
+              <h3 style="font-size: 1.25rem; margin-bottom: 16px;">Pertanyaan Sering Diajukan (FAQ)</h3>
+              <div class="faq-accordion">
+                <div class="faq-item">
+                  <div class="faq-question">
+                    <span>Bagaimana cara memutar musik & memilih lagu?</span>
+                    <span>+</span>
+                  </div>
+                  <div class="faq-answer">Klik tombol Play ▶️ di header atas. Anda juga dapat mengeklik ikon gerigi ⚙️ untuk memilih 3 lagu playlist instrumental dan mengatur volume musik. Musik akan terus berputar saat Anda berpindah halaman!</div>
+                </div>
+
+                <div class="faq-item">
+                  <div class="faq-question">
+                    <span>Apa saja yang ada di halaman Fun Facts?</span>
+                    <span>+</span>
+                  </div>
+                  <div class="faq-answer">Halaman Fun Facts berisi 12+ fakta unik dan menakjubkan seputar dunia jaringan, kabel bawah laut, asal-usul Wi-Fi, hingga sejarah router pertama di dunia. Anda dapat mengeklik tombol "🎲 Fakta Berikutnya" untuk mengacak fakta!</div>
+                </div>
+
+                <div class="faq-item">
+                  <div class="faq-question">
+                    <span>Apakah progress belajar & musik tersimpan otomatis?</span>
+                    <span>+</span>
+                  </div>
+                  <div class="faq-answer">Ya! Semua nilai, XP, playlist musik pilihan Anda, volume, status lagu, dan materi tersimpan di browser Anda (LocalStorage).</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      </main>
+    </div>
+  </div>
+
+  <!-- Active Game Play Modal Screen Container -->
+  <div id="game-play-area">
+    <div class="game-header-bar">
+      <div class="game-stats-pill-group">
+        <button class="btn btn-secondary btn-sm ripple" id="close-game-btn">⬅️ Keluar Game</button>
+        <h3 id="active-game-title">Nama Game</h3>
+      </div>
+      <div class="game-stats-pill-group">
+        <div class="stat-pill" title="Skor Game">🏆 <span id="game-score-display">0</span></div>
+        <div class="stat-pill" title="Sisa Waktu">⏱️ <span id="game-timer-display">60s</span></div>
+        <div class="stat-pill" title="Nyawa">❤️ <span id="game-lives-display">3</span></div>
+        <div class="stat-pill" title="Stars">⭐ <span id="game-stars-display">3</span></div>
+      </div>
+    </div>
+
+    <div class="game-stage-container" id="game-stage-content"></div>
+  </div>
+
+  <!-- Material Detail View Modal -->
+  <div class="modal-overlay" id="materi-modal">
+    <div class="modal-card materi-modal-content">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid var(--border-color); padding-bottom: 12px;">
+        <h3 id="modal-materi-title" style="font-size: 1.4rem;">Judul Materi</h3>
+        <button class="icon-btn" id="close-materi-modal">✕</button>
+      </div>
+      <div class="materi-detail-body" id="modal-materi-body"></div>
+      <div style="margin-top: 24px; text-align: right;">
+        <button class="btn btn-success ripple" id="finish-materi-btn">Tandai Selesai & Klaim XP (+50 XP)</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container"></div>
+
+  <!-- Back to Top Button -->
+  <button id="back-to-top" title="Kembali ke Atas">↑</button>
+
+  <!-- JavaScript Scripts -->
+  <script src="app.js"></script>
+  <script src="games.js"></script>
+  <script src="quiz.js"></script>
 </body>
-
 </html>
